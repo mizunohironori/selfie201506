@@ -14,7 +14,7 @@ int main(int argc, char **argv)
     int ch = 1 < argc ? atoi(argv[1]) : 1;
     printf("channel [%d]\n",ch);
 
-    // allocate socket
+    // allocate socket a
     s = socket(AF_BLUETOOTH, SOCK_STREAM, BTPROTO_RFCOMM);
     printf("socket [%d]\n",s);
 
