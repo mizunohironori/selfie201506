@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <sys/socket.h>
 #include <bluetooth/bluetooth.h>
@@ -42,7 +43,7 @@ int main(int argc, char **argv)
     }
     char *takephoto = "/usr/bin/raspistill -t 1 -o 1.jpg -w 2339 -h 1654";
     system(takephoto);
-    
+
     strcpy(buf,"takephoto");
     if( status == 0 ) {
         //status = write(client, buf, sizeof(buf));
