@@ -40,6 +40,9 @@ int main(int argc, char **argv)
     if( bytes_read > 0 ) {
         printf("received [%s]\n", buf);
     }
+    char *takephoto = "/usr/bin/raspistill -t 1 -o 1.jpg -w 2339 -h 1654";
+    system(takephoto);
+    
     strcpy(buf,"takephoto");
     if( status == 0 ) {
         //status = write(client, buf, sizeof(buf));
