@@ -11,6 +11,7 @@ int main(int argc, char **argv)
     struct sockaddr_rc loc_addr = { 0 }, rem_addr = { 0 };
     char buf[1024] = { 0 };
     int s, client, bytes_read, status;
+    int number, counter;
     socklen_t opt = sizeof(rem_addr);
     int ch = 1 < argc ? atoi(argv[1]) : 1;
     printf("channel [%d]\n",ch);
@@ -36,20 +37,26 @@ int main(int argc, char **argv)
     fprintf(stderr, "accepted connection from %s\n", buf);
     memset(buf, 0, sizeof(buf));
 
-    // read data from the client
-    bytes_read = read(client, buf, sizeof(buf));
-    if( bytes_read > 0 ) {
-        printf("received [%s]\n", buf);
-    }
-    char *takephoto = "/usr/bin/raspistill -t 1 -o 1.jpg -w 2339 -h 1654";
-    system(takephoto);
+    for(number=0;number<2; number++){
+        bytes_read = read(client, buf, sizeof(buf));
+        if( bytes_read > 0 ) {
+            printf("[%s]\n", buf);
+        }
+        for(counter=0;counter<5;counter++;){
+            status = write(client, counter, 1);
+            sleep(1000);  // wait 1sec
+        }
+        char *takephoto;
+        // char *takephoto = "/usr/bin/raspistill -t 1 -o ".number.".jpg -w 2339 -h 1654";
+        sprintf(takephoto,"/usr/bin/raspistill -t 1 -o %d.jpg -w 2339 -h 1654",number);
+        system(takephoto);
 
-    strcpy(buf,"takephoto");
-    if( status == 0 ) {
-        //status = write(client, buf, sizeof(buf));
-        status = write(client, "Hello", 5);
+        sprintf(buf,"%d –‡–ÚŽB‰e‚µ‚½‚æ",number);
+        if( status == 0 ) {
+            //status = write(client, buf, sizeof(buf));
+            status = write(client, buf, sizeof(buf));
+        }
     }
-
     if( status < 0 ) perror("uh oh");
 
     // close connection
