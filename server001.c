@@ -37,27 +37,32 @@ int main(int argc, char **argv)
     fprintf(stderr, "accepted connection from %s\n", buf);
     memset(buf, 0, sizeof(buf));
 
+    bytes_read = read(client, buf, sizeof(buf));
+    if( bytes_read > 0 ) {
+        printf("[%s]\n", buf);
+    }
+
     for(number=0;number<2; number++){
-        bytes_read = read(client, buf, sizeof(buf));
-        if( bytes_read > 0 ) {
-            printf("[%s]\n", buf);
+
+        for(counter=5;counter>0;counter--){
+       	    char buf1[5]={0};
+            sprintf(buf1,"%d ",counter);
+            printf("%s  ", buf1); fflush(stdout);
+            status = write(client, buf1, sizeof(buf1));
+            sleep(1);  // wait 1sec
         }
-        for(counter=0;counter<5;counter++;){
-            status = write(client, counter, 1);
-            sleep(1000);  // wait 1sec
-        }
-        char *takephoto;
-        // char *takephoto = "/usr/bin/raspistill -t 1 -o ".number.".jpg -w 2339 -h 1654";
-        sprintf(takephoto,"/usr/bin/raspistill -t 1 -o %d.jpg -w 2339 -h 1654",number);
+
+        char takephoto[1024]={0};
+        sprintf(takephoto,"/usr/bin/raspistill -t 1 -o %d.jpg -w 2339 -h 1654", number);
+        //printf("[%s]\n", takephoto);
         system(takephoto);
 
-        sprintf(buf,"%d –‡–ÚŽB‰e‚µ‚½‚æ",number);
-        if( status == 0 ) {
-            //status = write(client, buf, sizeof(buf));
-            status = write(client, buf, sizeof(buf));
-        }
+        sprintf(buf,"Photo No %d taken.",number);
+        printf("%s\n", buf);
+        status = write(client, buf, sizeof(buf));
+        if( status < 0 ) perror("uh oh");
+
     }
-    if( status < 0 ) perror("uh oh");
 
     // close connection
     close(client);
