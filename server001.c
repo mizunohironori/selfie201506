@@ -37,7 +37,7 @@ int main(int argc, char **argv)
     fprintf(stderr, "accepted connection from %s\n", buf);
     memset(buf, 0, sizeof(buf));
 
-    for(number=0;number<1; number++){
+    for(number=0;number<2; number++){
         bytes_read = read(client, buf, sizeof(buf));
         if( bytes_read > 0 ) {
             printf("[%s]\n", buf);
