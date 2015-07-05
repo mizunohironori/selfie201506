@@ -30,6 +30,8 @@ int main(int argc, char **argv)
     // put socket into listening mode
     listen(s, 1);
 
+while(1){
+
     // accept one connection
     client = accept(s, (struct sockaddr *)&rem_addr, &opt);
 
@@ -47,6 +49,7 @@ int main(int argc, char **argv)
         for(counter=5;counter>0;counter--){
        	    char buf1[5]={0};
             sprintf(buf1,"%d ",counter);
+            printf("\a"); 
             printf("%s  ", buf1); fflush(stdout);
             status = write(client, buf1, sizeof(buf1));
             sleep(1);  // wait 1sec
@@ -66,6 +69,7 @@ int main(int argc, char **argv)
 
     // close connection
     close(client);
+}
     close(s);
     return 0;
 }
