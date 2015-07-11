@@ -30,10 +30,13 @@ int main(int argc, char **argv)
     // put socket into listening mode
     listen(s, 1);
 
+    char LDIR[1024]={"/root/github/selfie201506"};
+    char GDIR[1024]={"/var/www/html/loveselfie/pictures"};
 while(1){
 
     // accept one connection
     client = accept(s, (struct sockaddr *)&rem_addr, &opt);
+    printf("ACCEPT\n"); fflush(stdout);
 
     ba2str( &rem_addr.rc_bdaddr, buf );
     fprintf(stderr, "accepted connection from %s\n", buf);
@@ -43,6 +46,7 @@ while(1){
     if( bytes_read > 0 ) {
         printf("[%s]\n", buf);
     }
+
 
     for(number=0;number<2; number++){
 
@@ -56,7 +60,7 @@ while(1){
         }
 
         char takephoto[1024]={0};
-        sprintf(takephoto,"/usr/bin/raspistill -t 1 -o %d.jpg -w 2339 -h 1654", number);
+        sprintf(takephoto,"/usr/bin/raspistill -t 1 -o %s/%d.jpg -w 2339 -h 1654", LDIR, number);
         //printf("[%s]\n", takephoto);
         system(takephoto);
 
@@ -69,7 +73,17 @@ while(1){
 
     // close connection
     close(client);
+
+        char command[1024]={0};
+        sprintf(command,"/usr/bin/scp %s/*.jpg root@www.broadbandjapan.net:%s", LDIR, GDIR);
+	printf("%s\n", command); fflush(stdout);
+	system(command);
+        sprintf(command,"/bin/rm -f %s/*.jpg", LDIR);
+	printf("%s\n", command); fflush(stdout);
+	system(command);
+        sprintf(buf,"Upload photos.");   printf("%s\n", buf);
 }
+
     close(s);
     return 0;
 }
