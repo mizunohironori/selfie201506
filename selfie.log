@@ -1,0 +1,33 @@
+channel [22]
+socket [3]
+ACCEPT
+accepted connection from 44:D4:E0:72:8A:39
+[あ]
+5   4   3   2   1   Photo No 0 taken.
+5   4   3   2   1   uh oh: Connection reset by peer
+Photo No 1 taken.
+/usr/bin/scp /root/github/selfie201506/*.jpg root@www.broadbandjapan.net:/var/www/html/loveselfie/pictures
+/bin/rm -f /root/github/selfie201506/*.jpg
+Upload photos.
+ACCEPT
+accepted connection from 44:D4:E0:72:8A:39
+5   4   3   2   1   uh oh: Transport endpoint is not connected
+Photo No 0 taken.
+5   4   3   2   1   uh oh: Transport endpoint is not connected
+Photo No 1 taken.
+/usr/bin/scp /root/github/selfie201506/*.jpg root@www.broadbandjapan.net:/var/www/html/loveselfie/pictures
+/bin/rm -f /root/github/selfie201506/*.jpg
+Upload photos.
+ACCEPT
+accepted connection from 44:D4:E0:72:8A:39
+[あ]
+5   4   3   2   1   Photo No 0 taken.
+5   4   3   2   1   Photo No 1 taken.
+/usr/bin/scp /root/github/selfie201506/*.jpg root@www.broadbandjapan.net:/var/www/html/loveselfie/pictures
+/bin/rm -f /root/github/selfie201506/*.jpg
+channel [22]
+socket [3]
+ACCEPT
+accepted connection from 44:D4:E0:72:8A:39
+[あ]
+5   4   3   2   1   
