@@ -58,7 +58,7 @@ while(1){
 
     for(number=0;number<2; number++){
 
-        for(counter=5;counter>0;counter--){
+        for(counter=3;counter>0;counter--){
        	    char buf1[5]={0};
             sprintf(buf1,"%d ",counter);
             // printf("\a");   // beep
